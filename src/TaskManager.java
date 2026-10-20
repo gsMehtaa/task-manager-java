@@ -2,36 +2,111 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         ArrayList<String> tasks = new ArrayList<>();
 
         int userChoice = 0;
+        int subchoice = 0;
 
         boolean running = true;
 
-        while(running){
-            System.out.println("====== TASK MANAGER ======");
-            System.out.println("1. Add Task");
-            System.out.println("2. View Task");
-            System.out.println("3. Remove Task");
-            System.out.println("4. Exit");
-            System.out.println();
 
-            System.out.println("Enter Your Choice: ");
-            userChoice = Integer.parseInt(scanner.nextLine());
+        while (running) {       //MAIN MENU
+            try {
+                System.out.println("====== TASK MANAGER ======");
+                System.out.println("1. Add Task");
+                System.out.println("2. View Task");
+                System.out.println("3. Remove Task");
+                System.out.println("4. Exit");
+                System.out.println();
 
-            if(userChoice == 1){
-                System.out.println("What would you like to add?");
-                String task = scanner.nextLine();
-                tasks.add(task);
+                System.out.println("Enter Your Choice: ");      //ENTER CHOICE
+                userChoice = Integer.parseInt(scanner.nextLine());
 
+                if (userChoice == 1) {      //CHOICE 1 - ADD TASK
+                    System.out.println("What would you like to add?");
+                    String task = scanner.nextLine();
+                    tasks.add(task);
+
+                } else if (userChoice == 2) {       //CHOICE 2 - View Tasks + submenu
+                    if(tasks.size() == 0){
+                        System.out.println("NO CURRENT TASKS");
+                    }
+                    else{
+                        System.out.println("Current Tasks: ");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i));
+                            }
+                        System.out.println("Would You like to add or remove anything?");
+                        System.out.println("1. Add");
+                        System.out.println("2. Remove");
+                        System.out.println("3. Main Menu");
+
+                        subchoice = Integer.parseInt(scanner.nextLine());
+                        if (subchoice == 1) {
+                            System.out.println("Add Task: ");
+                            String task = scanner.nextLine();
+                            tasks.add(task);
+
+                        } else if (subchoice == 2) {
+                            System.out.println("ENTER A NUMBER TO REMOVE");
+                            int userTask = Integer.parseInt(scanner.nextLine());
+                            int index = userTask - 1;
+
+                            if(index >= 0 && index<tasks.size()){
+                                String removed = tasks.remove(index);
+                                System.out.println(removed + " was Removed!");
+                            }
+                            else{
+                                System.out.println(userTask + " is not a Task");
+                            }
+
+
+                        } else if (subchoice == 3) {
+                            continue;
+                        }
+                    }
+
+
+                } else if (userChoice == 3) { // Choice 3 - Remove Task
+
+                    if (tasks.isEmpty()) {
+                        System.out.println("NO TASKS TO REMOVE!");
+                    } else {
+                        System.out.println("Current Tasks:");
+
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i));
+                        }
+
+                        System.out.println("ENTER A NUMBER TO REMOVE:");
+                        int userTask = Integer.parseInt(scanner.nextLine());
+                        int index = userTask - 1;
+
+                        if (index >= 0 && index < tasks.size()) {
+                            String removed = tasks.remove(index);
+                            System.out.println(removed + " was Removed!");
+                        } else {
+                            System.out.println("INVALID TASK NUMBER!");
+                        }
+                    }
+                }
+
+                else if (userChoice == 4) {         // choice 4 - exit
+                    System.out.println("EXITING PROGRAM");
+                    running = false;
+                }
+                else {
+                    System.out.println("CHOOSE OPTIONS 1-4:");
+                }
+
+                }
+            catch(NumberFormatException e){                     //catch exception
+                System.out.println("CHOOSE OPTIONS 1-4:");
             }
-            if(userChoice == 2){
-                System.out.println("Here are your current Tasks: ");
-                System.out.println(tasks);
-            }
+
         }
     }
 }
