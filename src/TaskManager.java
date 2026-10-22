@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -26,9 +27,7 @@ public class TaskManager {
                 userChoice = Integer.parseInt(scanner.nextLine());
 
                 if (userChoice == 1) {      //CHOICE 1 - ADD TASK
-                    System.out.println("What would you like to add?");
-                    String task = scanner.nextLine();
-                    tasks.add(task);
+                    addTask(tasks, scanner);
 
                 } else if (userChoice == 2) {       //CHOICE 2 - View Tasks + submenu
                     if(tasks.size() == 0){
@@ -46,9 +45,7 @@ public class TaskManager {
 
                         subchoice = Integer.parseInt(scanner.nextLine());
                         if (subchoice == 1) {
-                            System.out.println("Add Task: ");
-                            String task = scanner.nextLine();
-                            tasks.add(task);
+                            addTask(tasks, scanner);
 
                         } else if (subchoice == 2) {
                             System.out.println("ENTER A NUMBER TO REMOVE");
@@ -108,5 +105,12 @@ public class TaskManager {
             }
 
         }
+    }
+
+    public static void addTask(ArrayList<String> tasks, Scanner scanner){
+        System.out.println("What task would you like to add?");
+        String task = scanner.nextLine();
+        tasks.add(task);
+        System.out.println("Task added Sucessfully!");
     }
 }
