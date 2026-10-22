@@ -9,22 +9,20 @@ public class TaskManager {
         Scanner scanner = new Scanner(System.in);
         ArrayList<String> tasks = new ArrayList<>();
 
-        int userChoice = 0;
-        int subchoice = 0;
-
         boolean running = true;
 
         while (running) { // MAIN MENU
             try {
+                System.out.println();
                 System.out.println("====== TASK MANAGER ======");
                 System.out.println("1. Add Task");
-                System.out.println("2. View Task");
+                System.out.println("2. View Tasks");
                 System.out.println("3. Remove Task");
                 System.out.println("4. Exit");
                 System.out.println();
 
                 System.out.println("Enter Your Choice:");
-                userChoice = Integer.parseInt(scanner.nextLine());
+                int userChoice = Integer.parseInt(scanner.nextLine());
 
                 if (userChoice == 1) { // CHOICE 1 - ADD TASK
 
@@ -41,24 +39,13 @@ public class TaskManager {
                         System.out.println("2. Remove");
                         System.out.println("3. Main Menu");
 
-                        subchoice = Integer.parseInt(scanner.nextLine());
+                        int subchoice = Integer.parseInt(scanner.nextLine());
 
                         if (subchoice == 1) {
-
                             addTask(tasks, scanner);
 
                         } else if (subchoice == 2) {
-
-                            System.out.println("ENTER A NUMBER TO REMOVE:");
-                            int userTask = Integer.parseInt(scanner.nextLine());
-                            int index = userTask - 1;
-
-                            if (index >= 0 && index < tasks.size()) {
-                                String removed = tasks.remove(index);
-                                System.out.println(removed + " was Removed!");
-                            } else {
-                                System.out.println("INVALID TASK NUMBER!");
-                            }
+                            removeTask(tasks, scanner);
 
                         } else if (subchoice == 3) {
                             continue;
@@ -70,23 +57,7 @@ public class TaskManager {
 
                 } else if (userChoice == 3) { // CHOICE 3 - REMOVE TASK
 
-                    if (tasks.isEmpty()) {
-                        System.out.println("NO TASKS TO REMOVE!");
-                    } else {
-
-                        viewTask(tasks);
-
-                        System.out.println("ENTER A NUMBER TO REMOVE:");
-                        int userTask = Integer.parseInt(scanner.nextLine());
-                        int index = userTask - 1;
-
-                        if (index >= 0 && index < tasks.size()) {
-                            String removed = tasks.remove(index);
-                            System.out.println(removed + " was Removed!");
-                        } else {
-                            System.out.println("INVALID TASK NUMBER!");
-                        }
-                    }
+                    removeTask(tasks, scanner);
 
                 } else if (userChoice == 4) { // CHOICE 4 - EXIT
 
@@ -107,8 +78,10 @@ public class TaskManager {
 
     // METHOD 1 - ADD TASK
     public static void addTask(ArrayList<String> tasks, Scanner scanner) {
+
         System.out.println("What task would you like to add?");
         String task = scanner.nextLine();
+
         tasks.add(task);
         System.out.println("Task added Successfully!");
     }
@@ -123,6 +96,31 @@ public class TaskManager {
 
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+    }
+
+    // METHOD 3 - REMOVE TASK
+    public static void removeTask(ArrayList<String> tasks, Scanner scanner) {
+
+        if (tasks.isEmpty()) {
+            System.out.println("NO TASKS TO REMOVE!");
+        } else {
+
+            viewTask(tasks);
+
+            System.out.println("ENTER A NUMBER TO REMOVE:");
+            int userTask = Integer.parseInt(scanner.nextLine());
+
+            int index = userTask - 1;
+
+            if (index >= 0 && index < tasks.size()) {
+
+                String removed = tasks.remove(index);
+                System.out.println(removed + " was Removed!");
+
+            } else {
+                System.out.println("INVALID TASK NUMBER!");
             }
         }
     }
